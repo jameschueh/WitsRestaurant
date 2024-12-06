@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.restaurant.mapper.BillOrderMapper">
+
+    <!-- 查詢帳單中的所有訂單 -->
+    <select id="selectOrdersByBillId" resultType="com.example.restaurant.entity.Order">
+        SELECT * FROM orders
+        WHERE bill_id = #{billId}
+    </select>
+
+    <!-- 新增帳單與訂單的關聯 -->
+    <insert id="insertBillOrder" parameterType="com.example.restaurant.entity.BillOrder">
+        INSERT INTO bill_order (bill_id, order_id)
+        VALUES (#{billId}, #{orderId})
+    </insert>
+
+    <!-- 刪除帳單與訂單的關聯 -->
+    <delete id="deleteBillOrder" parameterType="com.example.restaurant.entity.BillOrder">
+        DELETE FROM bill_order WHERE bill_id = #{billId} AND order_id = #{orderId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.restaurant.mapper.MenuMapper">
+
+    <!-- 查詢所有菜單項目 -->
+    <select id="selectAllItems" resultType="com.example.restaurant.entity.Item">
+        SELECT * FROM items
+    </select>
+
+    <!-- 分頁查詢菜單 -->
+    <select id="selectItemsWithPagination" resultType="com.example.restaurant.entity.Item">
+        SELECT * FROM items LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 依關鍵字搜尋菜單項目 -->
+    <select id="searchMenuItems" resultType="com.example.restaurant.entity.Item">
+        SELECT * FROM items
+        WHERE name LIKE CONCAT('%', #{keyword}, '%')
+        OR description LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <!-- 新增菜單項目 -->
+    <insert id="insertItem" parameterType="com.example.restaurant.entity.Item">
+        INSERT INTO items (name, description, image, price)
+        VALUES (#{name}, #{description}, #{image}, #{price})
+    </insert>
+
+    <!-- 更新菜單項目 -->
+    <update id="updateItem" parameterType="com.example.restaurant.entity.Item">
+        UPDATE items
+        SET name = #{name}, description = #{description}, image = #{image}, price = #{price}
+        WHERE item_id = #{itemId}
+    </update>
+
+    <!-- 刪除菜單項目 -->
+    <delete id="deleteItem" parameterType="java.lang.Long">
+        DELETE FROM items WHERE item_id = #{itemId}
+    </delete>
+
+</mapper>

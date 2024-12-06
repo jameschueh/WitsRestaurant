@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.restaurant.entity
+  # configuration:
+  #   use-ddl-runner: false
+pagehelper:
+  helperDialect: h2  # 根據您使用的資料庫選擇方言，例如 h2、mysql 等
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
